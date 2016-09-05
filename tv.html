@@ -1,35 +1,61 @@
 <!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      var socket = io.connect('localhost:3000',{reconnect:true});
-      $('form').submit(function(){
-        socket.emit('message tv', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('message tela', function(msg){
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Socket.io Demo</title>
+
+  <style>
+    
+  </style>
+</head>
+<body>
+<h1>
+<div>OLÁ EU SOU A, <span id="username">Guest</span></div>
+</h1>
+
+<input type="button" value="Propagar" id="pp" />
+<ul id="messages">
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script>
+  var socket = io.connect('http://localhost:3000');
+
+  
+  var username = "TV";
+  socket.emit("add-user", {"username": username});
+  $("#username").text(username);
+
+  // Chat form
+ var chat_form = $(".chat-form");
+ chat_form.on("submit", function(){
+
+     // Send the message to the server
+     socket.emit("peopple-message", {
+      "group" : "pessoa",
+      "username": $(this).find("input:first").val(),
+      "content": $(this).find("textarea").val()
+     });
+
+     // Empty the form
+     $(this).find("input:first, textarea").val('');
+    return false;
+ });
+
+ // Whenever we receieve a message, append it to the <ul>
+ socket.on("add-message", function(dataP){
+  console.log(dataP);
+  $("#messages").append($("<li>", {
+    "text": dataP.content + ' - ' + dataP.dest
+  }));
+ });
+
+$("#pp").click(function(){
+  socket.emit("public",{
+    "group" : "pessoa",
+    "content" : "Atualiza aí cambada!"
+  })
+});
+</script>
+</body>
 </html>

@@ -1,25 +1,56 @@
-console.log("Iniciando servidor....");
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var app = require('http').createServer(handler)
+  , io = require('socket.io').listen(app)
+  , fs = require('fs')
 
-app.get('/', function(req, res){
-  //res.sendFile(__dirname + '/index.html');
-  res.sendFile('http://localhost/tvi/tela.html');
-});
+app.listen(3000);
 
-io.on('connection', function(socket){
-  socket.on('message tv', function(msg){
-	console.log("Menssagem da tv: " + msg);
-    io.emit('message tv', msg);
+var clients = {};
+
+function handler (req, res) {
+  //fs.readFile(__dirname + '/index.html',
+  fs.readFile('http://localhost/tv.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Erro ao carregar tv.html');
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
+
+io.sockets.on('connection', function (socket) {
+console.log("Conexão encontrada");
+  socket.on('add-user', function(data){
+  	console.log("Encontrado o usuario " + data.username)
+    clients[data.username] = {
+      "socket": socket.id
+    };
   });
 
-  socket.on('message tela', function(msg){
-	console.log("Menssagem da tela: " + msg);
-    io.emit('message tela', msg);
+  socket.on('private-message', function(data){
+    console.log("Enviando: " + data.content + " to " + data.username);
+    if (clients[data.username]){
+      io.sockets.connected[clients[data.username].socket].emit("add-message", data);
+    } else {
+      console.log("User does not exist: " + data.username); 
+    }
   });
-});
 
-http.listen(3000, function(){
-  console.log('Escutando porta *:3000');
+  socket.on('public', function(data){
+    console.log("Enviando publico: " + data.content + " para publico");
+    io.sockets.emit('public',data);
+  });
+
+  //Removing the socket on disconnect
+  socket.on('disconnect', function() {
+  	for(var name in clients) {
+  		if(clients[name].socket === socket.id) {
+  			delete clients[name];
+  			break;
+  		}
+  	}	
+  })
+
 });
