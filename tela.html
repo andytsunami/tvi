@@ -45,12 +45,14 @@
     $(this).remove();
     $("#username").text(username);
     $("#use").val(username);
+   
     chat_form.show();
     return false;
   });
 
   // Chat form
  var chat_form = $(".chat-form");
+
  chat_form.on("submit", function(){
 
    // Send the message to the server
@@ -61,7 +63,7 @@
    });
 
    // Empty the form
-   $(this).find("input:first, textarea").val('');
+   $(this).find("textarea").val('');
   return false;
  });
 
