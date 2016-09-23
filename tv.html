@@ -16,8 +16,8 @@
 <input type="button" value="Propagar" id="pp" />
 <ul id="messages">
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="lib/jquery-1.9.1.min.js"></script>
+<script src="lib/socket.io-1.2.0.js"></script>
 <script>
   var socket = io.connect('http://localhost:3000');
 
@@ -31,7 +31,7 @@
  chat_form.on("submit", function(){
 
      // Send the message to the server
-     socket.emit("peopple-message", {
+     socket.emit("people-message", {
       "group" : "pessoa",
       "username": $(this).find("input:first").val(),
       "content": $(this).find("textarea").val()
@@ -46,7 +46,7 @@
  socket.on("add-message", function(dataP){
   console.log(dataP);
   $("#messages").append($("<li>", {
-    "text": dataP.content + ' - ' + dataP.dest
+    "text": dataP.content + ' - ' + dataP.origin
   }));
  });
 

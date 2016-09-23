@@ -30,11 +30,11 @@ console.log("Conexão encontrada");
   });
 
   socket.on('private-message', function(data){
-    console.log("Enviando: " + data.content + " to " + data.username);
+    console.log(data.origin + " Enviando: " + data.content + " to " + data.username);
     if (clients[data.username]){
       io.sockets.connected[clients[data.username].socket].emit("add-message", data);
     } else {
-      console.log("User does not exist: " + data.username); 
+      console.log("Usuario não encontrado: " + data.username); 
     }
   });
 

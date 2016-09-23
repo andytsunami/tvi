@@ -29,8 +29,8 @@
   </ul>
 </form>
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="lib/jquery-1.9.1.min.js"></script>
+<script src="lib/socket.io-1.2.0.js"></script>
 <script>
   var socket = io.connect('http://localhost:3000');
 
@@ -59,7 +59,7 @@
    socket.emit("private-message", {
     "username": $("#recipient").val(),
     "content": $(this).find("textarea").val(),
-    "dest" : $("#use").val()
+    "origin" : $("#use").val()
    });
 
    // Empty the form
