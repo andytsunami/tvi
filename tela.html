@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Socket.io Demo</title>
+  <title>Cine TOP!</title>
 
   <style>
     .chat-form { display: none; }
@@ -28,6 +28,7 @@
 
   </ul>
 </form>
+<div id="conteudo"></div>
 
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/socket.io-1.2.0.js"></script>
@@ -76,6 +77,11 @@
 
   socket.on("public", function(data){
     alert(data.content);  
+ });
+
+  socket.on("conteudo", function(data){
+    $("#conteudo").html("");
+    $("#conteudo").html(data.content);
  });
 </script>
 </body>

@@ -43,6 +43,11 @@ console.log("Conexão encontrada");
     io.sockets.emit('public',data);
   });
 
+  socket.on('conteudo', function(data){
+    console.log("O exibindo o conteudo " + data.content + " no momento");
+    io.sockets.emit('conteudo',data);
+  });
+
   //Removing the socket on disconnect
   socket.on('disconnect', function() {
   	for(var name in clients) {
