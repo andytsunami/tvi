@@ -8,7 +8,7 @@ var clients = {};
 
 function handler (req, res) {
   //fs.readFile(__dirname + '/index.html',
-  fs.readFile('http://localhost/tv.html',
+  fs.readFile('localhost/tv.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);

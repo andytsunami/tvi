@@ -2,13 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Cine TOP!</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="manifest" href="manifest.json">
+  <meta name="description" content="WebApp de exemplo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="img/favicon.png">
+    <meta name="theme-color" content="#CB6120">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Cinemovies">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon-precomposed" href="img/favicon.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="img/favicon.png">
+    <meta name="msapplication-TileColor" content="#CB6120">
+
+     <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"  media="screen,projection"/>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
   <style>
+
+  #container { display:block; }
+@media only screen and (orientation:portrait){
+  #container {  
+    height: 100vw;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+@media only screen and (orientation:landscape){
+  #container {  
+     -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+     -o-transform: rotate(0deg);
+     -ms-transform: rotate(0deg);
+     transform: rotate(0deg);
+  }
+}
     .chat-form { display: none; }
+#container{
+  width: 100%;
+  height: 100%;
+}    
+
   </style>
+
+  <title>Cinemovies</title>
 </head>
 <body>
+<div id="container">
+  <div id="primeiro">
+    <div class="row">
+          <div class="col s12 m7">
+            <div class="card large horizontal">
+              <div class="card-image">
+                <img src="img/joker.jpg">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <p>Lorem ipsum doler...</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">Link?</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
 
 <form class="username-form" method="post" action="">
 <h1>BEM VINDO, DIGITE SEU NOME:</h1>
@@ -33,7 +109,7 @@
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/socket.io-1.2.0.js"></script>
 <script>
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect('http://apresentacao.top:3000');
 
   // Add a username
   $(".username-form").on("submit", function(){
