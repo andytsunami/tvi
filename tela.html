@@ -6,6 +6,8 @@
   <link rel="manifest" href="manifest.json">
   <meta name="description" content="WebApp de exemplo">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/5.0.0/normalize.css">
+  
 
   <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -25,140 +27,124 @@
 
      <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"  media="screen,projection"/>
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
-  <style>
 
-  #container { display:block; }
-@media only screen and (orientation:portrait){
-  #container {  
-    height: 100vw;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-}
-@media only screen and (orientation:landscape){
-  #container {  
-     -webkit-transform: rotate(0deg);
-     -moz-transform: rotate(0deg);
-     -o-transform: rotate(0deg);
-     -ms-transform: rotate(0deg);
-     transform: rotate(0deg);
-  }
-}
-    .chat-form { display: none; }
-#container{
-  width: 100%;
-  height: 100%;
-}    
+    <!-- Rateyo -->  
+      
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>  
 
-  </style>
-
-  <title>Cinemovies</title>
+      <link rel="stylesheet" type="text/css" href="css/estilo.css?version=2">
+    <title>Cinemovies</title>
 </head>
 <body>
-<div id="container">
-  <div id="primeiro">
-    <div class="row">
-          <div class="col s12 m7">
-            <div class="card large horizontal">
-              <div class="card-image">
-                <img src="img/joker.jpg">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <p>Lorem ipsum doler...</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">Link?</a>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="batman conteudo">
+    <div class="card large horizontal round">
+      <div class="card-image">
+        <img src="img/joker.jpg">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <h1 class="tituloFilme">Batman o cavaleiro das trevas</h1>
+          <h2>Data de lançamento:</h2>
+          <p>18 de julho de 2008 (2h 27min)</p>
+          <h2>Direção:</h2>
+          <p>Christopher Nolan</p>
+          <h2>Elenco:</h2>
+          <p>Christian Bale, Heath Ledger, mais</p>
+          <h2>Gêneros:</h2>
+          <p>Ação, Drama, Suspense</p>
+          <h2>Nacionalidade</h2>
+          <p>Eua, Reino unido</p>
         </div>
+        <div class="card-action">
+          <div class="star" data-filme="batman"></div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <script type="text/javascript">
+        $(function(){
+          
+              var tamanhoCard = $(".card-action").width();
+              var estrelaTamanho =  tamanhoCard * 1.16 - tamanhoCard;
+              var estrelaPadding = tamanhoCard * 1.0389 - tamanhoCard;
 
-<form class="username-form" method="post" action="">
-<h1>BEM VINDO, DIGITE SEU NOME:</h1>
-  <input type="text" id="nam"/>
-  <input type="submit" value="ENTRAR" />
-</form>
+              $(".star").rateYo({
+              rating: 3,
+              fullStar: true,
+              spacing: estrelaPadding+'px',
+              starWidth: estrelaTamanho+'px',
+              numStar: 5,
+              halfStar: false,
+              onSet: function(rating, rateYoInstance){
+                alert("O filme " + $(this).attr("data-filme") + " foi votado em " + rating + " estrelas!");
+                $(this).rateYo("option","readOnly",true);
+              },
+            });
+            
+        });
+        
+      </script>
+  <script src="lib/socket.io-1.2.0.js"></script>
+  
+  <!--script>
+    var socket = io.connect('http://apresentacao.top:3000');
 
-<form class="chat-form" method="post" action="">
- <h1> <div>OLÁ, <span id="username"></span></div></h1>
-  <input id="recipient" value="TV"  />
-  <input id="use" />
-  <label>OPINIÃO: </label><br />
-  <textarea id="message"></textarea>
-  <input type="submit" value="Send" />
+    // Add a username
+    $(".username-form").on("submit", function(){
 
-  <ul id="messages">
+      // Tell the server about it
+      var username = $(this).children("#nam").val();
+      socket.emit("add-user", {"username": username});
 
-  </ul>
-</form>
-<div id="conteudo"></div>
+      // Remove this form and show the chat form
+      $(this).remove();
+      $("#username").text(username);
+      $("#use").val(username);
+     
+      chat_form.show();
+      return false;
+    });
 
-<script src="lib/jquery-1.9.1.min.js"></script>
-<script src="lib/socket.io-1.2.0.js"></script>
-<script>
-  var socket = io.connect('http://apresentacao.top:3000');
+    // Chat form
+   var chat_form = $(".chat-form");
 
-  // Add a username
-  $(".username-form").on("submit", function(){
+   chat_form.on("submit", function(){
 
-    // Tell the server about it
-    var username = $(this).children("#nam").val();
-    socket.emit("add-user", {"username": username});
+     // Send the message to the server
+     socket.emit("private-message", {
+      "username": $("#recipient").val(),
+      "content": $(this).find("textarea").val(),
+      "origin" : $("#use").val()
+     });
 
-    // Remove this form and show the chat form
-    $(this).remove();
-    $("#username").text(username);
-    $("#use").val(username);
-   
-    chat_form.show();
+     // Empty the form
+     $(this).find("textarea").val('');
     return false;
-  });
-
-  // Chat form
- var chat_form = $(".chat-form");
-
- chat_form.on("submit", function(){
-
-   // Send the message to the server
-   socket.emit("private-message", {
-    "username": $("#recipient").val(),
-    "content": $(this).find("textarea").val(),
-    "origin" : $("#use").val()
    });
 
-   // Empty the form
-   $(this).find("textarea").val('');
-  return false;
- });
+   // Whenever we receieve a message, append it to the <ul>
+   socket.on("add-message", function(data){
+    $("#messages").append($("<li>", {
+      "text": data.content
+    }));
+   });
 
- // Whenever we receieve a message, append it to the <ul>
- socket.on("add-message", function(data){
-  $("#messages").append($("<li>", {
-    "text": data.content
-  }));
- });
+    socket.on("public", function(data){
+      alert(data.content);  
+   });
 
-  socket.on("public", function(data){
-    alert(data.content);  
- });
-
-  socket.on("conteudo", function(data){
-    $("#conteudo").html("");
-    $("#conteudo").html(data.content);
- });
-</script>
+    socket.on("conteudo", function(data){
+      $("#conteudo").html("");
+      $("#conteudo").html(data.content);
+   });
+  </script -->
 </body>
 </html>

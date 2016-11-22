@@ -1,0 +1,115 @@
+ body {
+      font-family: 'Roboto', sans-serif;
+}
+html,body,.conteudo,.card-stacked {
+  height: 100% !important;
+  font-size: 100%;
+}
+#container { display:block; }
+/*
+@media only screen and (orientation:portrait){
+  #container {  
+    height: 100vw;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+
+@media only screen and (orientation:landscape){
+  #container {  
+     -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+     -o-transform: rotate(0deg);
+     -ms-transform: rotate(0deg);
+     transform: rotate(0deg);
+  }
+}
+*/
+.chat-form { display: none; }
+
+#container{
+  width: 100%;
+  height: 100% !important;
+}
+
+.tituloFilme{
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #C64832;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+
+.card-content h2{
+  font-family: "Roboto";
+  font-size: 0.9rem;
+  line-height: 0;
+  font-weight: bold;
+  padding: 0 0 0 0 !important;
+  margin: 0 0 0 0 !important;
+}
+
+.card-content{
+  font-family: "Roboto";
+  font-size: 1.1rem;
+  line-height: 2.2rem;
+}
+
+.card-content p{
+  margin-bottom: 0.3rem !important;
+}
+
+.card .card-action{
+  border: none !important;
+}
+
+.round{
+  border-radius: 32px;
+}
+
+.round img{
+  border-radius: 32px 0 0 32px !important;  
+}
+
+.conteudo {
+  margin-left: 0;
+  margin-top: 0%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.conteudo .horizontal{
+  height: 90%;
+  width: 90%;
+  left: 5%;
+  top: 3%;
+}
+
+.star{
+  width: 10%;
+}
+
+.batman:before {
+content: "&nbsp";
+background-image: url("../img/joker.jpg");
+background-repeat: no-repeat;
+background-size: 61% 100%;
+display: block;
+position: fixed;
+left: -10%;
+right: 0;
+z-index: -1;
+-webkit-filter: blur(11px);
+-moz-filter: blur(11px);
+-o-filter: blur(11px);
+-ms-filter: blur(11px);
+filter: blur(11px);
+height: 70%;
+top: -10%;
+height: 115%;
+}
