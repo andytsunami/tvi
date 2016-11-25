@@ -27,6 +27,7 @@
 
      <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"  media="screen,projection"/>
@@ -39,6 +40,7 @@
       
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>  
+      <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 
       <link rel="stylesheet" type="text/css" href="css/estilo.css?version=2">
     <title>Cinemovies</title>
@@ -51,6 +53,7 @@
       </div>
       <div class="card-stacked">
         <div class="card-content">
+          <div class="progress" id="progress"></div>
           <h1 class="tituloFilme">Batman o cavaleiro das trevas</h1>
           <h2>Data de lançamento:</h2>
           <p>18 de julho de 2008 (2h 27min)</p>
@@ -71,8 +74,37 @@
   </div>
   <script type="text/javascript">
         $(function(){
-          
-              var tamanhoCard = $(".card-action").width();
+             var bar = new ProgressBar.Circle('.progress', {
+                color: '#444242',
+                strokeWidth: 4,
+                trailWidth: 1,
+                easing: 'easeInOut',
+                duration: 1400,
+                text: {
+                  autoStyleContainer: false
+                },
+                from: { color: '#C2C3C9', width: 1 },
+                to: { color: '#CB6120', width: 4 },
+                // Set default step function for all animate calls
+                step: function(state, circle) {
+                  circle.path.setAttribute('stroke', state.color);
+                  circle.path.setAttribute('stroke-width', state.width);
+
+                  var value = Math.round(circle.value() * 100);
+                  if (value === 0) {
+                    circle.setText('');
+                  } else {
+                    circle.setText(value);
+                  }
+
+                }
+              });
+
+             bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+             bar.text.style.fontSize = '2rem';
+             bar.animate(0.8);
+
+             var tamanhoCard = $(".card-action").width();
               var estrelaTamanho =  tamanhoCard * 1.16 - tamanhoCard;
               var estrelaPadding = tamanhoCard * 1.0389 - tamanhoCard;
 
@@ -85,10 +117,16 @@
               halfStar: false,
               onSet: function(rating, rateYoInstance){
                 alert("O filme " + $(this).attr("data-filme") + " foi votado em " + rating + " estrelas!");
+
                 $(this).rateYo("option","readOnly",true);
               },
             });
-            
+
+              //http://bxslider.com/examples/carousel-demystified#example1
+
+              //alert("width: " + $('body').width() + "px \n Height: " + $('body').height() + "px");
+
+                          
         });
         
       </script>

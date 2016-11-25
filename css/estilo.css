@@ -1,10 +1,89 @@
+ /*
+DIMENSOES EM PX
+MotoMaxx pwa : w 640 h 336;
+MotoMaxx firefox : w 640 h 288;
+MotoMaxx chrome : w 640 h 280;
+
+Lourenzo Browser : w 980 h 1391;
+
+Felipe PWA: w 598 h 336;
+
+IPAD AIR Safari W 1024 h 704
+IPAD AIR APPY w 1024 H 768
+
+ */
+
  body {
       font-family: 'Roboto', sans-serif;
 }
-html,body,.conteudo,.card-stacked {
+
+@media screen and (max-width: 600px) {
+  .card-content {
+    line-height: 1.88rem !important;
+  }
+  .card-content .progress{
+    left: 87% !important;
+  }
+}
+
+   @media screen and (max-width: 650px) {
+      html,body,.conteudo,.card-stacked {
+         font-size: 0.65em !important;
+      }
+
+      .progress{
+        height: 38px !important;
+        width: 38px !important;
+        left: 88% !important;
+        top: 7% !important;
+      }
+   }
+
+   
+   @media screen and (min-height: 300px) {
+      html,body,.conteudo,.card-stacked {
+         font-size: 0.86em !important;
+      }
+
+      .progress{
+        height: 40px !important;
+        width: 40px !important;
+        left: 88% !important;
+        top: 6% !important;
+      }
+
+      .progressbar-text{
+        font-size: 1.3rem !important;
+      }
+
+      .tituloFilme{
+        font-size: 1.1rem !important;
+      }
+   }
+
+   @media screen and (min-width: 1024px) {
+    html,body,.conteudo,.card-stacked {
+         font-size: 1.56em !important;
+      }
+      .card-content {
+        line-height: 3.6rem !important;
+      }
+      .progress {
+          height: 60px !important;
+          width: 60px !important;
+          left: 88% !important;
+          top: 5% !important;
+      }
+      .progressbar-text {
+          font-size: 1.6rem !important;
+      }
+  }
+
+   html,body,.conteudo,.card-stacked {
   height: 100% !important;
   font-size: 100%;
 }
+
 #container { display:block; }
 /*
 @media only screen and (orientation:portrait){
@@ -57,6 +136,7 @@ html,body,.conteudo,.card-stacked {
   font-family: "Roboto";
   font-size: 1.1rem;
   line-height: 2.2rem;
+  position: relative;
 }
 
 .card-content p{
@@ -93,6 +173,17 @@ html,body,.conteudo,.card-stacked {
 .star{
   width: 10%;
 }
+
+.progress{
+  height: 100px;
+  width: 100px;
+  background: none !important;
+  position: fixed;
+  left: 89%;
+  top: 4%;
+}
+
+
 
 .batman:before {
 content: "&nbsp";
