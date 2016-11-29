@@ -220,12 +220,42 @@ top: -10%;
 height: 115%;
 }
 
+/*.card-image{
+  min-width: 50% !important;
+  max-width: 50% !important;
+}*/
+
+.water.ativo:before{
+  background-image: url("../img/water.jpg");
+  
+}
 
 .batman.ativo:before{
   background-image: url("../img/joker.jpg");
+  z-index: 0;
+}
+
+.star7.ativo:before{
+  background-image: url("../img/star7.jpg");
+  z-index: 0;
 }
 
 .squad.ativo:before{
   background-image: url("../img/squad.jpg");
+  z-index: 0;
+}
+
+.veloz.ativo:before{
+  background-image: url("../img/veloz.jpg");
+  z-index: 0;
+}
+
+.beast.ativo:before{
+  background-image: url("../img/beast.jpg");
+  z-index: 0;
+}
+
+.bela.ativo:before{
+  background-image: url("../img/bela.jpg");
   z-index: 0;
 }
