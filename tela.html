@@ -32,9 +32,14 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"  media="screen,projection"/>
 
+      
+
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
+      <!--Slider -->
+      <script type="text/javascript" src="lib/jquery.bxslider.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="lib/jquery.bxslider.css">
 
     <!-- Rateyo -->  
       
@@ -46,14 +51,15 @@
     <title>Cinemovies</title>
 </head>
 <body>
-  <div class="batman conteudo">
+  <div class="tela">
+  
+  <div class="batman conteudo slide ativo">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/joker.jpg">
       </div>
       <div class="card-stacked">
         <div class="card-content">
-          <div class="progress" id="progress"></div>
           <h1 class="tituloFilme">Batman o cavaleiro das trevas</h1>
           <h2>Data de lançamento:</h2>
           <p>18 de julho de 2008 (2h 27min)</p>
@@ -65,6 +71,7 @@
           <p>Ação, Drama, Suspense</p>
           <h2>Nacionalidade</h2>
           <p>Eua, Reino unido</p>
+          <div class="progress" id="progress"></div>
         </div>
         <div class="card-action">
           <div class="star" data-filme="batman"></div>
@@ -72,9 +79,38 @@
       </div>
     </div>
   </div>
+
+  <div class="squad conteudo slide">
+    <div class="card large horizontal round">
+      <div class="card-image">
+        <img src="img/squad.jpg">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <h1 class="tituloFilme">ESQUADRÃO SUICIDA</h1>
+          <h2>Data de lançamento:</h2>
+          <p>4 de agosto de 2016 (2h 03min)</p>
+          <h2>Direção:</h2>
+          <p>David Ayer</p>
+          <h2>Elenco:</h2>
+          <p>Margot Robbie, Will Smith, Jared Leto</p>
+          <h2>Gêneros:</h2>
+          <p>Ação, Fantasia</p>
+          <h2>Nacionalidade</h2>
+          <p>Eua</p>
+          <div class="progress" id="progress"></div>
+        </div>
+        <div class="card-action">
+          <div class="star" data-filme="squad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script type="text/javascript">
         $(function(){
-             var bar = new ProgressBar.Circle('.progress', {
+             var batman = new ProgressBar.Circle('.progress', {
                 color: '#444242',
                 strokeWidth: 4,
                 trailWidth: 1,
@@ -100,11 +136,40 @@
                 }
               });
 
-             bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-             bar.text.style.fontSize = '2rem';
-             bar.animate(0.8);
+             batman.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+             batman.text.style.fontSize = '2rem';
+             batman.animate(0.8);
 
-             var tamanhoCard = $(".card-action").width();
+             var squad = new ProgressBar.Circle('.squad', {
+                color: '#444242',
+                strokeWidth: 4,
+                trailWidth: 1,
+                easing: 'easeInOut',
+                duration: 1400,
+                text: {
+                  autoStyleContainer: false
+                },
+                from: { color: '#C2C3C9', width: 1 },
+                to: { color: '#CB6120', width: 4 },
+                // Set default step function for all animate calls
+                step: function(state, circle) {
+                  circle.path.setAttribute('stroke', state.color);
+                  circle.path.setAttribute('stroke-width', state.width);
+
+                  var value = Math.round(circle.value() * 100);
+                  if (value === 0) {
+                    circle.setText('');
+                  } else {
+                    circle.setText(value);
+                  }
+
+                }
+              });
+
+             squad.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+             squad.text.style.fontSize = '2rem';
+
+              var tamanhoCard = $(".card-action").width();
               var estrelaTamanho =  tamanhoCard * 1.16 - tamanhoCard;
               var estrelaPadding = tamanhoCard * 1.0389 - tamanhoCard;
 
@@ -125,6 +190,34 @@
               //http://bxslider.com/examples/carousel-demystified#example1
 
               //alert("width: " + $('body').width() + "px \n Height: " + $('body').height() + "px");
+
+              var slider = $('.tela').bxSlider({
+                useCSS: false,
+                //pager: false,
+                touchEnabled: false,
+
+                onSlideBefore: function($slideElement, oldIndex, newIndex){
+                    $('.ativo').removeClass('ativo');
+                    
+                 },
+
+                 onSlideAfter: function($slideElement, oldIndex, newIndex){
+                    $slideElement.addClass("ativo");
+
+                    switch(newIndex){
+                      case 0 :
+                      batman.animate(0.8);
+                      break;
+                      case 1 :
+                      squad.animate(0.8);
+                      break;
+
+                    }
+                    
+                 },
+
+                 
+              });
 
                           
         });
@@ -184,5 +277,6 @@
       $("#conteudo").html(data.content);
    });
   </script -->
+</div>
 </body>
 </html>

@@ -79,9 +79,26 @@ IPAD AIR APPY w 1024 H 768
       }
   }
 
-   html,body,.conteudo,.card-stacked {
-  height: 100% !important;
-  font-size: 100%;
+   html,body,.tela,.bx-wrapper,.bx-viewport,.conteudo,.card-stacked {
+    height: 100% !important;
+    font-size: 100%;
+}
+
+.bx-viewport{
+  position: fixed !important;
+}
+
+.bx-wrapper{
+  margin: 0 0 0 0 !important;
+  padding: 0 0 0 0 !important;
+}
+
+.bx-wrapper .bx-viewport{
+box-shadow: 0 0 0 0 !important;
+border: none !important;
+left: 0 !important;
+background: #fff;
+transform: translatez(0);
 }
 
 #container { display:block; }
@@ -178,18 +195,16 @@ IPAD AIR APPY w 1024 H 768
   height: 100px;
   width: 100px;
   background: none !important;
-  position: fixed;
+  position: absolute;
   left: 89%;
   top: 4%;
 }
 
-
-
-.batman:before {
+.conteudo:before {
 content: "&nbsp";
-background-image: url("../img/joker.jpg");
 background-repeat: no-repeat;
 background-size: 61% 100%;
+background-color: #F00;
 display: block;
 position: fixed;
 left: -10%;
@@ -203,4 +218,14 @@ filter: blur(11px);
 height: 70%;
 top: -10%;
 height: 115%;
+}
+
+
+.batman.ativo:before{
+  background-image: url("../img/joker.jpg");
+}
+
+.squad.ativo:before{
+  background-image: url("../img/squad.jpg");
+  z-index: 0;
 }
