@@ -227,7 +227,7 @@ height: 115%;
 
 .water.ativo:before{
   background-image: url("../img/water.jpg");
-  
+  z-index: 0;
 }
 
 .batman.ativo:before{
@@ -258,4 +258,14 @@ height: 115%;
 .bela.ativo:before{
   background-image: url("../img/bela.jpg");
   z-index: 0;
+}
+
+.intro .card, .nome .card{
+  background-color: #CB6120;
+}
+
+.intro .card{
+  background-image: url("../img/cine.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }

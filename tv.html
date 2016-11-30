@@ -5,21 +5,32 @@
   <title>Cine TOP!!</title>
 
   <style>
-    
+    html,body{
+      width: 100% !important;
+      height: 100% !important
+    }
+
+    #relogio{
+          position: fixed;
+          top: 16% !important;
+          left: 9%;
+          color: #00FF1E;
+          font-size: 17em;
+    }
   </style>
 </head>
 <body>
+<div id="relogio">Espera</div>
 <h1>
 <div>OLÁ EU SOU A, <span id="username">Guest</span></div>
 </h1>
-
+<div id="player"></div>
 <input type="button" value="Propagar" id="pp" />
 <ul id="messages">
-<div id="player"></div>
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/socket.io-1.2.0.js"></script>
 <script>
-  var socket = io.connect('http://apresentacao.top:3000');
+  var socket = io.connect('http://localhost:3000');
 
   
   var username = "TV";
@@ -58,6 +69,11 @@ $("#pp").click(function(){
 });
 </script>
 <script type="text/javascript">
+  var width = $("body").width() / 2;
+  var height = $("body").height() / 2;
+
+  var cardAtual = "";
+
   var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -69,16 +85,16 @@ $("#pp").click(function(){
       var player;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: 'ahb_nlxCg3E',
+          height: height,
+          width: width,
+          videoId: 'vr8uRbONSsU',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange,
           }
         });
       }
-
+//https://www.youtube.com/watch?v=vr8uRbONSsU
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
         event.target.playVideo();
@@ -97,47 +113,63 @@ $("#pp").click(function(){
       }
 
       function atualiza() {
+        $("#relogio").html((Math.round(player.getCurrentTime() * 100) / 100));
          // player.stopVideo();
-         socket.emit("conteudo",{
-          "group" : "pessoa",
-          "content" : getConteudo((Math.round(player.getCurrentTime() * 100) / 100) ) 
-       })
+
+         var status = getConteudo((Math.round(player.getCurrentTime() * 100) / 100) );
+
+
+         console.log("Atual: " + cardAtual + " Status: " + status);
+         if(cardAtual != status){
+          cardAtual = status;
+          socket.emit("conteudo",{
+              "group" : "pessoa",
+              "content" :  status,
+           })
+         }
+
+
+         
       }
 
       function getConteudo(tempo){
 
         var intro = "Intro";
         var conteudoAtual = intro;
-        if(tempo >= 34.00 && tempo <= 42.00 ){
-          conteudoAtual = 'Engenheiros';
+        if(tempo >= 0 && tempo <= 40.00 ){
+          conteudoAtual = 'intro';
           return  conteudoAtual;
-        } else if(tempo >= 69.00 && tempo <= 98){
-            conteudoAtual = 'Atirar';
+        } else if(tempo >= 132.32 && tempo <= 159.0){
+            conteudoAtual = 'nome';
             return  conteudoAtual;
-        } else if(tempo >= 100 && tempo <= 124.16){
-            conteudoAtual = 'VariasArmas';
+        } else if(tempo >= 160.0 && tempo <= 237.05){
+            conteudoAtual = 'water';
             return  conteudoAtual;
-        } else if(tempo >= 125.00 && tempo <= 174){
-            conteudoAtual = 'Habilidade';
+        } else if(tempo >= 238.00 && tempo <= 281.56){
+            conteudoAtual = 'squad';
             return  conteudoAtual;
-        } else if(tempo >= 175 && tempo <= 203){
-            conteudoAtual = 'PuloAlto';
+        } else if(tempo >= 282.5 && tempo <= 329.0){
+            conteudoAtual = 'star7';
             return  conteudoAtual;
-        } else if(tempo >= 203.05 && tempo <= 223){
-            conteudoAtual = 'PuloDuplo';
+        } else if(tempo >= 329.04 && tempo <= 406.44){
+            conteudoAtual = 'batman';
             return  conteudoAtual;
-        } else if(tempo >= 224 && tempo <= 240){
-            conteudoAtual = 'Disfarces';
+        } else if(tempo >= 407.25 && tempo <= 530.0){
+            conteudoAtual = 'veloz';
             return  conteudoAtual;
-        }  else if(tempo >= 241 && tempo <= 262.41){
-            conteudoAtual = 'Fuga';
+        } else if(tempo >= 540.58 && tempo <= 622.0){
+            conteudoAtual = 'beast';
             return  conteudoAtual;
-        } else if(tempo >= 282){
-            conteudoAtual = 'like';
+        } else if(tempo >= 634.0 && tempo <= 680.0){
+            conteudoAtual = 'bela';
             return  conteudoAtual;
-        } else {
-          return intro;
-        }
+        } else if(tempo >= 685.0 && tempo <= 698.0){
+            conteudoAtual = 'resposta';
+            return  conteudoAtual;
+        } else if(tempo >= 698.1){
+            conteudoAtual = 'intro';
+            return  conteudoAtual;
+        } 
       }
 </script>
 </body>

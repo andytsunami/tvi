@@ -53,7 +53,27 @@
 <body>
   <div class="tela">
 
-  <div class="water conteudo slide ativo">
+  <div class="intro conteudo slide ativo">
+    <div class="card large horizontal round">
+      <div class="card-image">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="nome conteudo slide">
+    <div class="card large horizontal round">
+      <div class="card-image">
+        <form>
+          <label>Qual é o seu nome?</label>
+          <input name="nome" id="input-nome"></input>
+          <input type="button" value="Enviar"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="water conteudo slide">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/water.jpg">
@@ -274,7 +294,7 @@
 
              water.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
              water.text.style.fontSize = '2rem';
-             water.animate(0.4);
+             
 
 
              var batman = new ProgressBar.Circle('#progress-batman', {
@@ -476,7 +496,7 @@
 
               var slider = $('.tela').bxSlider({
                 useCSS: false,
-                //pager: false,
+                pager: false,
                 touchEnabled: false,
 
                 onSlideBefore: function($slideElement, oldIndex, newIndex){
@@ -489,24 +509,26 @@
 
                     switch(newIndex){
                       case 0 :
+                      console.log("Nada por enquanto");
+                      case 1 :
                       water.animate(0.8);
                       break;
-                      case 1 :
+                      case 2 :
                       squad.animate(0.9);
                       break;
-                      case 2 :
+                      case 3 :
                       star7.animate(1.0);
                       break;
-                      case 3 : 
+                      case 4 : 
                       batman.animate(0.9);
                       break;
-                      case 4 :
+                      case 5 :
                       veloz.animate(0.8);
                       break;
-                      case 5 :
+                      case 6 :
                       beast.animate(0.9);
                       break;
-                      case 6 : 
+                      case 7 : 
                       bela.animate(0.5);
                       break;
                     }
@@ -522,8 +544,8 @@
       </script>
   <script src="lib/socket.io-1.2.0.js"></script>
   
-  <!--script>
-    var socket = io.connect('http://apresentacao.top:3000');
+  <script>
+    var socket = io.connect('http://localhost:3000');
 
     // Add a username
     $(".username-form").on("submit", function(){
@@ -573,7 +595,7 @@
       $("#conteudo").html("");
       $("#conteudo").html(data.content);
    });
-  </script -->
+  </script>
 </div>
 </body>
 </html>
