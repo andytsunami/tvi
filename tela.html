@@ -96,7 +96,7 @@
           <div class="progress" id="progress-water"></div>
         </div>
         <div class="card-action">
-          <div class="star" data-filme="water"></div>
+          <div class="star" data-filme="water" data-primeira="sim"></div>
         </div>
       </div>
     </div>
@@ -296,6 +296,7 @@
 
              water.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
              water.text.style.fontSize = '2rem';
+
              
 
 
@@ -486,8 +487,16 @@
               numStar: 5,
               halfStar: false,
               onSet: function(rating, rateYoInstance){
-                alert("O filme " + $(this).attr("data-filme") + " foi votado em " + rating + " estrelas!");
+                //alert("O filme " + $(this).attr("data-filme") + " foi votado em " + rating + " estrelas!");
 
+                socket.emit("nota", {
+                  "usuario": $("#nome").val(),
+                  "estrelas": rating,
+                  "filme" : $(this).attr("data-filme"),
+                  //"primeira" : $(this).attr("data-primeira");
+               });
+
+                $(this).attr("data-primeira","nao");
                 $(this).rateYo("option","readOnly",true);
               },
             });
@@ -498,7 +507,7 @@
 
               var slider = $('.tela').bxSlider({
                 useCSS: false,
-                pager: false,
+                //pager: false,
                 touchEnabled: false,
 
                 onSlideBefore: function($slideElement, oldIndex, newIndex){
@@ -512,26 +521,26 @@
                     switch(newIndex){
                       case 0 :
                       console.log("Nada por enquanto");
-                      case 1 :
-                      water.animate(0.8);
-                      break;
                       case 2 :
-                      squad.animate(0.9);
+                      water.animate(0.0);
                       break;
                       case 3 :
-                      star7.animate(1.0);
+                      squad.animate(0.0);
                       break;
-                      case 4 : 
-                      batman.animate(0.9);
+                      case 4 :
+                      star7.animate(0.0);
                       break;
-                      case 5 :
-                      veloz.animate(0.8);
+                      case 5 : 
+                      batman.animate(0.0);
                       break;
                       case 6 :
-                      beast.animate(0.9);
+                      veloz.animate(0.0);
                       break;
-                      case 7 : 
-                      bela.animate(0.5);
+                      case 7 :
+                      beast.animate(0.0);
+                      break;
+                      case 8 : 
+                      bela.animate(0.0);
                       break;
                     }
                     
@@ -615,6 +624,26 @@
         slider.goToSlide(8);
         break;
       }
+   });
+
+   socket.on("progress",function(data){
+      console.log("Atualiza progress do filme " + data.filme + " com a media de " + data.media);
+        switch(data.filme) {
+          case 'water' : water.animate(data.media);
+          break;
+          case 'squad' : squad.animate(data.media);
+          break;
+          case 'star7' : star7.animate(data.media);
+          break;
+          case 'batman' : batman.animate(data.media);
+          break;
+          case 'veloz' : veloz.animate(data.media);
+          break;
+          case 'beast' : beast.animate(data.media);
+          break;
+          case 'bela' : bela.animate(data.media);
+          break;
+        }
    });            
         });
         
