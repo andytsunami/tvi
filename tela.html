@@ -47,6 +47,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>  
       <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 
+      <script src="lib/socket.io-1.2.0.js"></script>
+
       <link rel="stylesheet" type="text/css" href="css/estilo.css?version=2">
     <title>Cinemovies</title>
 </head>
@@ -538,14 +540,7 @@
                  
               });
 
-                          
-        });
-        
-      </script>
-  <script src="lib/socket.io-1.2.0.js"></script>
-  
-  <script>
-    var socket = io.connect('http://localhost:3000');
+              var socket = io.connect('http://localhost:3000');
 
     // Add a username
     $(".username-form").on("submit", function(){
@@ -595,6 +590,39 @@
       $("#conteudo").html("");
       $("#conteudo").html(data.content);
    });
+
+    socket.on("card", function(data){
+      console.log("Trocando para " + data);
+      switch(data.content){
+        case 'water' :
+        slider.goToSlide(2);
+        case 'squad' :
+        slider.goToSlide(3);
+        break;
+        case 'star7' :
+        slider.goToSlide(4);
+        break;
+        case 'batman' :
+        slider.goToSlide(5);
+        break;
+        case  'veloz':
+        slider.goToSlide(6);
+        break;
+        case  'beast':
+        slider.goToSlide(7);
+        break;
+        case  'bela':
+        slider.goToSlide(8);
+        break;
+      }
+   });            
+        });
+        
+      </script>
+  
+  
+  <script>
+    
   </script>
 </div>
 </body>

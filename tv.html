@@ -122,7 +122,7 @@ $("#pp").click(function(){
          console.log("Atual: " + cardAtual + " Status: " + status);
          if(cardAtual != status && status != undefined){
           cardAtual = status;
-          socket.emit("conteudo",{
+          socket.emit("card",{
               "group" : "pessoa",
               "content" :  status,
            })
