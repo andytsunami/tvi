@@ -537,7 +537,7 @@
 
               var slider = $('.tela').bxSlider({
                 useCSS: false,
-                //pager: false,
+                pager: false,
                 touchEnabled: false,
 
                 onSlideBefore: function($slideElement, oldIndex, newIndex){
@@ -580,7 +580,7 @@
                  
               });
 
-              var socket = io.connect('http://localhost:3000');
+              var socket = io.connect('http://apresentacao.top:3000');
 
     // Add a username
     $(".username-form").on("submit", function(){

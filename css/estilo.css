@@ -17,6 +17,11 @@ IPAD AIR APPY w 1024 H 768
       font-family: 'Roboto', sans-serif;
 }
 
+.sim, .nao{
+  cursor: pointer;
+  font-size: 12em !important;
+}
+
 @media screen and (max-width: 600px) {
   .card-content {
     line-height: 1.88rem !important;
@@ -66,7 +71,7 @@ IPAD AIR APPY w 1024 H 768
          font-size: 1.56em !important;
       }
       .card-content {
-        line-height: 3.6rem !important;
+        line-height: 2.6rem !important;
       }
       .progress {
           height: 60px !important;
@@ -77,12 +82,52 @@ IPAD AIR APPY w 1024 H 768
       .progressbar-text {
           font-size: 1.2rem !important;
       }
+
+      .intro .card {
+        background-size: 20em !important;
+      }
+      .material-icons {
+        font-size: 2em !important;
+      }
+      .row .col.s12 {
+        width: 36% !important;
+      }
+
+      .sim, .nao {
+        font-size: 3em !important;
+      }
+
+      .espaco13{
+        padding-left: 6em !important;
+      }
+
+      .row .col.m3 {
+         width: 4em;
+      }
+
+      h4 {
+        font-size: 1.18rem;
+        line-height: 110%;
+        margin: 1em 1em 1em 1em;
+        width: 28em;
+      }
+
+      .ticket {
+        position: absolute !important;
+        z-index: 99 !important;
+        width: 5rem !important;
+        left: 17rem !important;
+        top: 0rem !important;
+      }
+
   }
 
    html,body,.tela,.bx-wrapper,.bx-viewport,.conteudo,.card-stacked {
     height: 100% !important;
     font-size: 100%;
 }
+
+
 
 .bx-viewport{
   position: fixed !important;
@@ -323,7 +368,7 @@ height: 115%;
 }
 
 .material-icons{
-  font-size: 5em !important;
+  font-size: 5em;
   direction: rtl !important;
 }
 
@@ -331,10 +376,7 @@ height: 115%;
   padding-left: 13em;
 }
 
-.sim, .nao{
-  cursor: pointer;
-  font-size: 12em !important;
-}
+
 
 .nao {
   color: #F00;
