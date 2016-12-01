@@ -204,7 +204,7 @@ transform: translatez(0);
 content: "&nbsp";
 background-repeat: no-repeat;
 background-size: 61% 100%;
-background-color: #F00;
+background-color: #C2C3C9;
 display: block;
 position: fixed;
 left: -10%;
@@ -260,12 +260,94 @@ height: 115%;
   z-index: 0;
 }
 
-.intro .card, .nome .card{
+.intro .card{
   background-color: #CB6120;
+}
+
+.nome .card{
+  background-color: #444242;
 }
 
 .intro .card{
   background-image: url("../img/cine.png");
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-size: 39em;
+}
+
+.prefix{
+  color: #FFF;
+}
+
+.formulario{
+  width: 35rem;
+  margin-left: 19%;
+}
+
+.formulario .row{
+  width: 28em;
+  margin-top:  7rem;
+}
+
+.formulario .input-field{
+  margin-left: 8em;
+}
+
+.formulario a{
+  margin-left: 5%;
+}
+
+.active{
+  color: #CB6120 !important;
+}
+
+ .input-field input[type=text]:focus, input.valid[type="text"]{
+     border-bottom: 1px solid #CB6120 !important;
+     box-shadow: 0 1px 0 0 #CB6120;
+     color: #FFF;   
+}
+
+.formulario .btn-large{
+  background-color: #CB6120 !important;
+  padding: 0rem 1rem 3rem 1rem;
+}
+
+.pesquisa .row{
+  width: 54rem;
+  color: #CB6120;
+}
+
+.pesquisa .row .icon-container{
+  width: 47em;
+
+}
+
+.material-icons{
+  font-size: 5em !important;
+  direction: rtl !important;
+}
+
+.pesquisa .icon-container .espaco13{
+  padding-left: 13em;
+}
+
+.sim, .nao{
+  cursor: pointer;
+  font-size: 12em !important;
+}
+
+.nao {
+  color: #F00;
+}
+
+.sim{
+  color: #00F;
+}
+
+.ticket{
+  position: absolute;
+  z-index: 99;
+  width: 6rem;
+  left: 20rem;
+  top: 0rem;
 }

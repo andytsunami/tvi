@@ -64,18 +64,41 @@
   </div>
 
   <div class="nome conteudo slide">
+  <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
-      <div class="card-image">
-        <form>
-          <label>Qual é o seu nome?</label>
-          <input name="nome" id="input-nome"></input>
-          <input type="button" value="Enviar"></input>
-        </form>
+          <form class="col s12 formulario">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input placeholder="Informe aqui seu nome" id="nome-espectador" type="text" class="validate">
+              </div>
+             </div>
+             <a class="waves-effect waves-light btn-large" id="btn-nome">Salvar</a>
+          </form>
+        
+      </div>
+  </div>
+
+<div class="pesquisa conteudo slide ativo">
+    <div class="card large horizontal round">
+      <div class="row">
+        <h4>O que você acha do exagero nas expectativas geradas pela industria do cinema?</h4>
+        <div class="row icon-container">
+          <div class="icon-preview col s6 m3">
+            <i class="material-icons dp48 sim">thumb_up</i>
+            <span>Eu gosto</span>
+          </div>
+          <div class="icon-preview col s6 m3 espaco13">
+            <i class="material-icons dp48 nao">thumb_down</i>
+            <span>Não gosto</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="water conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/water.jpg">
@@ -103,6 +126,7 @@
   </div>
 
   <div class="squad conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/squad.jpg">
@@ -130,6 +154,7 @@
   </div>
 
   <div class="star7 conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/star7.jpg">
@@ -157,6 +182,7 @@
   </div>
   
   <div class="batman conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/joker.jpg">
@@ -184,6 +210,7 @@
   </div>
 
 <div class="veloz conteudo slide">
+  <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/veloz.jpg">
@@ -212,6 +239,7 @@
   </div>
 
   <div class="beast conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/beast.jpg">
@@ -239,6 +267,7 @@
   </div>
 
   <div class="bela conteudo slide">
+    <img src="img/logo.png" class="ticket">
     <div class="card large horizontal round">
       <div class="card-image">
         <img src="img/bela.jpg">
@@ -268,6 +297,7 @@
 
   <script type="text/javascript">
         $(function(){
+          var espectador = "anonimo";
              var water = new ProgressBar.Circle('#progress-water', {
                 color: '#444242',
                 strokeWidth: 4,
@@ -490,7 +520,7 @@
                 //alert("O filme " + $(this).attr("data-filme") + " foi votado em " + rating + " estrelas!");
 
                 socket.emit("nota", {
-                  "usuario": $("#nome").val(),
+                  "usuario": espectador,
                   "estrelas": rating,
                   "filme" : $(this).attr("data-filme"),
                   //"primeira" : $(this).attr("data-primeira");
@@ -521,6 +551,7 @@
                     switch(newIndex){
                       case 0 :
                       console.log("Nada por enquanto");
+                      break;
                       case 2 :
                       water.animate(0.0);
                       break;
@@ -601,27 +632,30 @@
    });
 
     socket.on("card", function(data){
-      console.log("Trocando para " + data);
+      console.log("Trocando para " + data.content);
       switch(data.content){
-        case 'water' :
-        slider.goToSlide(2);
-        case 'squad' :
-        slider.goToSlide(3);
+        case 'resposta':
+        slider.goToSlide(0);
         break;
-        case 'star7' :
+        case 'water' :
+        slider.goToSlide(3);
+        case 'squad' :
         slider.goToSlide(4);
         break;
-        case 'batman' :
+        case 'star7' :
         slider.goToSlide(5);
         break;
-        case  'veloz':
+        case 'batman' :
         slider.goToSlide(6);
         break;
-        case  'beast':
+        case  'veloz':
         slider.goToSlide(7);
         break;
-        case  'bela':
+        case  'beast':
         slider.goToSlide(8);
+        break;
+        case  'bela':
+        slider.goToSlide(9);
         break;
       }
    });
@@ -644,7 +678,28 @@
           case 'bela' : bela.animate(data.media);
           break;
         }
-   });            
+   });
+
+   $("#btn-nome").click(function(){
+    if($("#nome-espectador").val() != ""){
+      socket.emit("add-user", {"username": $("#nome-espectador").val()});
+      espectador = $("#nome-espectador").val();
+      $("#nome-espectador").attr("disabled","disabled");
+      $(this).remove();
+      slider.goToSlide(0);
+    }
+      
+   });
+
+   $(".sim").click(function(){
+      socket.emit("pesquisa", {"resposta": "sim"});
+      slider.goToSlide(0);
+   });
+
+   $(".nao").click(function(){
+      socket.emit("pesquisa", {"resposta": "nao"});
+      slider.goToSlide(0);
+   });
         });
         
       </script>

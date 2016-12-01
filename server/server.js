@@ -7,14 +7,14 @@ app.listen(3000);
 var clients = {};
 
 var water = {soma: 0, quantidade: 0};
-var squad = {soma: 0, quantidade: 0};;
-var star7 = {soma: 0, quantidade: 0};;
-var batman = {soma: 0, quantidade: 0};;
-var veloz = {soma: 0, quantidade: 0};;
-var beast = {soma: 0, quantidade: 0};;
-var bela = {soma: 0, quantidade: 0};;
+var squad = {soma: 0, quantidade: 0};
+var star7 = {soma: 0, quantidade: 0};
+var batman = {soma: 0, quantidade: 0};
+var veloz = {soma: 0, quantidade: 0};
+var beast = {soma: 0, quantidade: 0};
+var bela = {soma: 0, quantidade: 0};
 
-var pesquisa = {sim: 0, nao: 0};;
+var pesquisa = {sim: 0, nao: 0};
 
 function handler (req, res) {
   //fs.readFile(__dirname + '/index.html',
@@ -46,6 +46,17 @@ console.log("Conexão encontrada");
     } else {
       console.log("Usuario não encontrado: " + data.username); 
     }
+  });
+
+  socket.on('pesquisa',function(data){
+    if(data.resposta == 'sim'){
+      console.log("Recebido uma resposta " + data.resposta);
+      pesquisa.sim++;
+    } else {
+      pesquisa.nao++;
+    }
+
+    console.log("A parcial é de " + pesquisa.sim + " para SIM e " + pesquisa.nao + " para NAO");
   });
 
   socket.on('nota', function(data){
@@ -273,6 +284,12 @@ console.log("Conexão encontrada");
   socket.on('card', function(data){
     console.log("O exibindo o card " + data.content + " no momento");
     io.sockets.emit('card',data);
+    
+  });
+
+  socket.on('resposta',function(data){
+    console.log("Hora de trazer a resposta da pesquisa.")
+    io.sockets.emit('card','resposta');
   });
 
   //Removing the socket on disconnect
