@@ -284,11 +284,15 @@ console.log("Conexão encontrada");
   socket.on('card', function(data){
     console.log("O exibindo o card " + data.content + " no momento");
     io.sockets.emit('card',data);
+    if(data.content == 'resposta'){
+      console.log("Hora de trazer a resposta da pesquisa.");
+      io.sockets.connected[clients["TV"].socket].emit("dados", pesquisa);
+    }
     
   });
 
   socket.on('resposta',function(data){
-    console.log("Hora de trazer a resposta da pesquisa.")
+    
     io.sockets.emit('card','resposta');
   });
 

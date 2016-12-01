@@ -7,7 +7,8 @@
   <style>
     html,body{
       width: 100% !important;
-      height: 100% !important
+      height: 100% !important;
+      background-color: #000;
     }
 
     #relogio{
@@ -17,17 +18,27 @@
           color: #00FF1E;
           font-size: 17em;
     }
+
+    #piechart{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: 9999;
+      top: 1em;
+      left: 1em;
+      background-color: transparent;
+    }
   </style>
 </head>
 <body>
-<div id="relogio">Espera</div>
+<!--div id="relogio">Espera</div>
 <h1>
 <div>OLÁ EU SOU A, <span id="username">Guest</span></div>
-</h1>
+</h1-->
 <div id="player"></div>
-<input type="button" value="Propagar" id="pp" />
-<ul id="messages">
+
 <script src="lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="lib/socket.io-1.2.0.js"></script>
 <script>
   var socket = io.connect('http://localhost:3000');
@@ -69,8 +80,8 @@ $("#pp").click(function(){
 });
 </script>
 <script type="text/javascript">
-  var width = $("body").width() / 2;
-  var height = $("body").height() / 2;
+  var width = $("body").width();
+  var height = $("body").height();
 
   var cardAtual = "";
 
@@ -167,10 +178,60 @@ $("#pp").click(function(){
             conteudoAtual = 'resposta';
             return  conteudoAtual;
         } else if(tempo >= 698.1){
+            $("#piechart").remove();
             conteudoAtual = 'intro';
             return  conteudoAtual;
         } 
       }
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var options = {
+          title: 'O que você acha do exagero nas expectativas geradas pela industria do cinema?',
+          backgroundColor: { fill:'transparent' },
+          'width':width,
+          'height':height,
+           tooltip: {textStyle:  {fontName: 'Roboto',fontSize: 32,bold: false}},
+           legend: {textStyle:  {fontName: 'Roboto',fontSize: 32,bold: false}},
+            titleTextStyle: {
+              color: 'FFFFFF',
+              fontName: 'Roboto',
+              fontSize: 52
+            },
+            legend: 'none',
+            pieSliceText: 'label',
+            pieStartAngle: 100,
+
+        };
+
+        
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        //chart.draw("", options);
+
+    
+        //alert("Sim: " + data.sim + " \n Não: " + data.nao);
+        
+      
+      socket.on('dados',function(data){
+        var data = google.visualization.arrayToDataTable([
+          ['Resposta', 'Quantidade'],
+          ['GOSTAM',     data.sim],
+          ['NÃO GOSTAM', data.nao],
+          
+        ]);
+
+       chart.draw(data, options); 
+      });
+        
+      
+      }
+
+
+
+      
 </script>
+    <div id="piechart"></div>
 </body>
 </html>
