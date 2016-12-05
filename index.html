@@ -79,7 +79,7 @@
       </div>
   </div>
 
-<div class="pesquisa conteudo slide ativo">
+<div class="pesquisa conteudo slide">
     <div class="card large horizontal round">
       <div class="row">
         <h4>O que você acha do exagero nas expectativas geradas pela industria do cinema?</h4>
@@ -637,6 +637,12 @@
         case 'resposta':
         slider.goToSlide(0);
         break;
+        case 'nome':
+        slider.goToSlide(1);
+        break;
+        case 'pesquisa':
+        slider.goToSlide(2);
+        break;
         case 'water' :
         slider.goToSlide(3);
         case 'squad' :
@@ -686,7 +692,7 @@
       espectador = $("#nome-espectador").val();
       $("#nome-espectador").attr("disabled","disabled");
       $(this).remove();
-      slider.goToSlide(0);
+      slider.goToSlide(2);
     }
       
    });
