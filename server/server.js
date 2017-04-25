@@ -18,7 +18,7 @@ var pesquisa = {sim: 0, nao: 0};
 
 function handler (req, res) {
   //fs.readFile(__dirname + '/index.html',
-  fs.readFile('localhost/tv.html',
+  fs.readFile('localhost/cinemovies/tv.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);
